@@ -1,0 +1,25 @@
+# {{ ansible_managed }}
+[Unit]
+Description=rsync backup from {{ rsync_backup_source_path }} to {{ rsync_backup_target_path }}
+
+[Service]
+{% if rsync_backup_mount_pre -%}
+	ExecStartPre=/bin/sh -c '/bin/mkdir -p "{{ rsync_backup_target_path }}" && /bin/mount "{{ rsync_backup_target_path }}'
+{%- endif %}
+
+ExecStart=/bin/sh -c '/usr/bin/rsync
+{%- if rsync_backup_short_flags | length > 0 %}{{ " -" }}
+	{%- for flag in rsync_backup_short_flags -%}
+		{{ flag }}
+	{%- endfor -%}
+{%- endif -%}
+{%- for flag in rsync_backup_flags -%}
+	 {{ " " }}--{{ flag }}
+{%- endfor %}
+{%- for exclude in rsync_backup_excludes -%}
+	 {{ " " }}--exclude="{{ exclude }}"
+{%- endfor -%}
+{{ " " }}"{{ rsync_backup_source_path }}" "{{ rsync_backup_target_path }}" && sync'
+{% if rsync_backup_umount_post -%}
+	ExecStopPost=/bin/umount "{{ rsync_backup_target_path }}"
+{%- endif %}

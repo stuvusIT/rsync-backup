@@ -1,0 +1,29 @@
+---
+- name: Install rsync
+  apt:
+    name: rsync
+
+- name: Install systemd service file (rsync-backup.service)
+  template:
+    dest: /etc/systemd/system/rsync-backup.service
+    group: root
+    owner: root
+    mode: 0644
+    src: rsync-backup.service.j2
+  register: rsyncservice
+
+- name: Install systemd timer file (rsync-backup.timer)
+  template:
+    dest: /etc/systemd/system/rsync-backup.timer
+    group: root
+    owner: root
+    mode: 0644
+    src: rsync-backup.timer.j2
+  register: rsynctimer
+
+- name: Enable and start systemd timer
+  systemd:
+    name: rsync-backup.timer
+    enabled: True
+    state: started
+    daemon_reload: "{{ rsyncservice.changed or rsynctimer.changed }}"

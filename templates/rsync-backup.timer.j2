@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+[Unit]
+Description=rsync backup from {{ rsync_backup_source_path }} to {{ rsync_backup_target_path }}
+
+[Timer]
+OnCalendar={{ rsync_backup_frequency }}
+Persistent=true
+
+[Install]
+WantedBy=timers.target
