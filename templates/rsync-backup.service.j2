@@ -8,10 +8,8 @@ Description=rsync backup from {{ rsync_backup_source_path }} to {{ rsync_backup_
 {%- endif %}
 
 ExecStart=/bin/sh -c '/usr/bin/rsync
-{%- if rsync_backup_short_flags | length > 0 %}{{ " -" }}
-	{%- for flag in rsync_backup_short_flags -%}
-		{{ flag }}
-	{%- endfor -%}
+{%- if rsync_backup_short_flags | length > 0 -%}
+	{{ " -" }}{{ rsync_backup_short_flags | join() }}
 {%- endif -%}
 {%- for flag in rsync_backup_flags -%}
 	 {{ " " }}--{{ flag }}
