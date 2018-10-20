@@ -1,0 +1,24 @@
+---
+rsync_backup_source_path: /
+rsync_backup_target_path: /mnt/backup
+rsync_backup_mount_pre: True
+rsync_backup_umount_post: True
+rsync_backup_short_flags:
+  - a # archive mode
+  - H # preserve hard links
+  - E # preserve executability
+  - A # preserve ACLs
+  - S # handle sparse files efficiently
+  - x # don't cross filesystem borders
+  - h # output numbers in a human-readable format
+rsync_backup_flags:
+  - delete-during # delete files that don't exist in the target during transfer
+  - numeric-ids # use numeric uids instead of the respective names
+  - stats # print stats at the end of the transfer
+  - force # delete dirs even if they're not empty
+  - delete-excluded # also delete files/dirs matching excludes
+  - partial # keep partially transferred files
+rsync_backup_excludes:
+  - media
+  - var/cache
+rsync_backup_frequency: daily
