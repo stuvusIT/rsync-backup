@@ -1,5 +1,7 @@
 ---
-rsync_backup_source_path: /
+rsync_backup_source_paths:
+  - /
+  - /boot
 rsync_backup_target_path: /mnt/backup
 rsync_backup_mount_pre: True
 rsync_backup_umount_post: True
