@@ -3,7 +3,7 @@
 Description=rsync backup from {{ rsync_backup_source_paths | join(',') }} to {{ rsync_backup_target_path }}
 
 [Service]
-SuccessExitStatus={{ rsync_backup_allowed_exit_codes | join(' ') }}
+SuccessExitStatus={{ rsync_backup_allowed_return_codes | join(' ') }}
 {% if rsync_backup_mount_pre -%}
 	ExecStartPre=/bin/sh -c '/bin/mkdir -p "{{ rsync_backup_target_path }}" && /bin/mount "{{ rsync_backup_target_path }}"'
 {%- endif %}
