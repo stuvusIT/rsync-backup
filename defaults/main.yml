@@ -20,6 +20,7 @@ rsync_backup_flags:
   - force # delete dirs even if they're not empty
   - delete-excluded # also delete files/dirs matching excludes
   - partial # keep partially transferred files
+  - relative # Copy files relative: /source/boot/efi will be copied to /target/boot/efi instead of /target/efi
 rsync_backup_excludes:
   - media
   - var/cache
