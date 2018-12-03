@@ -25,3 +25,5 @@ rsync_backup_excludes:
   - media
   - var/cache
 rsync_backup_frequency: daily
+rsync_backup_allowed_return_codes:
+  - 0
