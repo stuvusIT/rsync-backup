@@ -22,5 +22,6 @@ ExecStart=/bin/sh -c '/usr/bin/rsync
 {% if rsync_backup_umount_post -%}
 	ExecStopPost=/bin/umount "{{ rsync_backup_target_path }}"
 {%- endif %}
+
 Restart=always
 RestartSec=10
