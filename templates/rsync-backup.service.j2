@@ -1,6 +1,8 @@
 # {{ ansible_managed }}
 [Unit]
 Description=rsync backup from {{ rsync_backup_source_paths | join(',') }} to {{ rsync_backup_target_path }}
+StartLimitBurst=16
+StartLimitIntervalSec=43200 # 12 hours
 
 [Service]
 SuccessExitStatus={{ rsync_backup_allowed_return_codes | join(' ') }}
@@ -24,4 +26,4 @@ ExecStart=/bin/sh -c '/usr/bin/rsync
 {%- endif %}
 
 Restart=on-failure
-RestartSec=10
+RestartSec=1800 # 30 minutes
