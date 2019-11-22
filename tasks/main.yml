@@ -10,7 +10,6 @@
     owner: root
     mode: 0644
     src: rsync-backup.service.j2
-    validate: systemd-analyze verify %s
   register: rsyncservice
 
 - name: Install systemd timer file (rsync-backup.timer)
@@ -20,7 +19,6 @@
     owner: root
     mode: 0644
     src: rsync-backup.timer.j2
-    validate: systemd-analyze verify %s
   register: rsynctimer
 
 - name: Enable and start systemd timer
